@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UrMusic</title>
+    <style>
+        body {
+            font-family: JetBrains Mono, sans-serif;
+            margin: 0;
+            padding: 0;   
+            background: linear-gradient(to bottom right, #000 55%, #007bff);
+            background-repeat: no-repeat;
+        }
+
+        nav {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 7%;
+            padding-right: 7%;
+        }
+        nav img {
+            height: 80px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none; /* Quitar la decoración de los enlaces */
+            color: #fff; /* Establecer color de texto */
+            transition: transform 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            transform: scale(1.1);
+            color: #007bff;
+        }
+
+        main h1 {
+            font-size: 72px;
+            text-align: center; /* Centrado horizontal */
+            margin-top: 170px; /* Margen superior opcional para separar del borde superior */
+            color: white;
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            height: 57.2vh;
+        }
+        .gallery img {
+            width: 225px; /* Ancho fijo */
+            height: 225px; /* Altura fija */
+            object-fit: cover;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <img src="images/logo.png" alt="Logo">
+        <ul>
+            <li><a href="/register">Sign Up</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Sumérgete en el sonido</h1>
+        <div class="gallery">
+            <img src="images/quevedo.webp" alt="Imagen 1">
+            <img src="images/ela.webp" alt="Imagen 2">
+            <img src="images/emi.webp" alt="Imagen 3">
+            <img src="images/snop.webp" alt="Imagen 4">
+            <img src="images/ciga.webp" alt="Imagen 5">
+        </div>
+    </main>
+</body>
+</html>
