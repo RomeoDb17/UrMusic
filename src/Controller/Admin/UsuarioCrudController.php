@@ -32,8 +32,7 @@ class UsuarioCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setSearchFields(['nombre', 'correo', 'apellidos'])
-            ->setDefaultSort(['apellidos' => 'ASC'])
+            ->setSearchFields(['nombre', 'email'])
         ;
     }
 

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}UrMusic{% endblock %}</title>
+</head>
+<body>
+
+    <style>
+        * {
+  padding: 0;
+  margin: 0;
+}
+body {
+  background-color: #121212;
+            font-family: JetBrains Mono, sans-serif;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 196px;
+  background-color: #000000;
+  padding: 24px;
+}
+.sidebar .logo img {
+  width: 130px;
+}
+.sidebar .navigation ul {
+  list-style: none;
+  margin-top: 20px;
+}
+.sidebar .navigation ul li {
+  padding: 10px 0px;
+}
+.sidebar .navigation ul li a {
+  color: #b3b3b3;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+}
+.sidebar .navigation ul li a:hover,
+.sidebar .navigation ul li a:active,
+.sidebar .navigation ul li a:focus {
+  color: #ffffff;
+}
+.sidebar .navigation ul li a:hover .fa,
+.sidebar .navigation ul li a:active .fa,
+.sidebar .navigation ul li a:focus .fa {
+  color: #b3b3b3;
+}
+.sidebar .navigation ul li .fa {
+  font-size: 20px;
+  margin-right: 10px;
+}
+.sidebar .navigation ul li a:hover .fa:hover,
+.sidebar .navigation ul li a:hover .fa:active,
+.sidebar .navigation ul li a:hover .fa:focus {
+  color: #ffffff;
+}
+
+.main-container {
+  margin-left: 245px;
+  margin-bottom: 100px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #101010;
+  padding: 14px 30px;
+}
+
+
+.spotify-playlists {
+  padding: 20px 40px;
+}
+.spotify-playlists h2 {
+  color: #ffffff;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+.spotify-playlists .list {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  flex-wrap: wrap; /* Esta línea envolverá los elementos */
+}
+.spotify-playlists .list .item {
+  min-width: 140px;
+  width: 160px;
+  padding: 15px;
+  background-color: #181818;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all ease 0.4s;
+}
+.spotify-playlists .list .item:hover {
+  background-color: #252525;
+}
+.spotify-playlists .list .item img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.spotify-playlists .list .item .play {
+  position: relative;
+}
+.spotify-playlists .list .item .play .fa {
+  position: absolute;
+  right: 10px;
+  top: -60px;
+  padding: 18px;
+  background-color: #ffffff;
+  border-radius: 100%;
+  opacity: 0;
+  transition: all ease 0.4s;
+}
+.spotify-playlists .list .item:hover .play .fa {
+  opacity: 1;
+  transform: translateY(-20px);
+}
+.spotify-playlists .list .item h4 {
+  color: #ffffff;
+  font-size: 14px;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.spotify-playlists .list .item p {
+  color: #989898;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.spotify-playlists hr {
+  margin: 70px 0px 0px;
+  border-color: #636363;
+}
+
+.preview {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to right, #ae2896, #509bf5);
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+}
+.preview h6 {
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.preview p {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+}
+.preview button {
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 14px 30px;
+  border: 0px;
+  border-radius: 40px;
+  cursor: pointer;
+}
+
+.container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progress-container {
+    width: 80%;
+    height: 10px;
+    background-color: #666;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #ffffff;
+    width: 0%;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 80%; /* Ajusta el ancho máximo según sea necesario */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border: none;
+    color: rgb(0, 0, 0);
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+input[type="range"] {
+    width: 100px;
+}
+
+.mb-3{
+  text-decoration: none;
+  color: white;
+}
+
+.mb-3 a {
+  text-decoration: none;
+  color: #0099ff;
+  size-weight: 600;
+  padding-top: 40px;
+  transition: 0.7s;
+}
+
+.mb-3 a:hover {
+  transform: scale(1.1);
+}
+
+</style>
+
+    <div class="sidebar">
+    
+      <div class="logo">
+        <a href="#">
+          <img src="/images/logo.png" alt="Logo" />
+        </a>
+      </div>
+
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="">
+              <span class="fa fa-home"></span>
+              <span>Home</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="buscar">
+              <span class="fa fa-search"></span>
+              <span>Search</span>
+            </a>
+          </li>
+          
+          
+        </ul>
+      </div>
+
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="/playlist/new">
+              <span class="fa fas fa-plus-square"></span>
+              <span>Create Playlist</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      {% if app.user %}
+            <div class="mb-3">
+                {{ app.user.userIdentifier }} <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+      
+    </div>
+
+    <div class="main-container">
+      <div class="topbar">
+        <div class="prev-next-buttons">
+          
+        </div>
+
+        
+      </div>
+
+      <div class="spotify-playlists">
+        <h2>UrMusic Songs</h2>
+
+
+          <div class="list">
+    {% for cancion in Cancion %}
+        {% set audioFilePath = '/uploads/canciones/' ~ cancion.getArchivo() %}
+        <div class="item" id="cancion{{ cancion.getId() }}" data-src="{{ audioFilePath }}">
+            <img src="{{ asset('images/' ~ cancion.imagen) }}" alt="{{ cancion.titulo }} Cover" class="song-image">
+            <div class="play">
+                <span class="fa fa-play" onclick="playSong({{ cancion.getId() }})"></span>
+            </div>
+            <h4>{{ cancion.getTitulo() }}</h4>
+            <p>{{ cancion.getArtista() }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+<audio id="audioPlayer" controls style="display: none;"></audio>
+
+<script>
+    function playSong(id) {
+        var audioPlayer = document.getElementById('audioPlayer');
+        var cancion = document.getElementById('cancion' + id);
+        var sourceUrl = cancion.dataset.src;
+        
+        console.log('Reproduciendo canción:', sourceUrl); // Verifica si la URL es válida
+
+        audioPlayer.src = sourceUrl;
+        audioPlayer.play();
+    }
+</script>
+
+<div class="container">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="controls">
+            <button onclick="playPause()" id="playPauseBtn">Play</button>
+            <input type="range" id="volumeControl" min="0" max="100" step="1" value="100" oninput="setVolume()">
+            <audio id="audioPlayer">
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const progressBar = document.getElementById('progressBar');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const volumeControl = document.getElementById('volumeControl');
+
+        function playPause() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playPauseBtn.textContent = 'Pause';
+            } else {
+                audioPlayer.pause();
+                playPauseBtn.textContent = 'Play';
+            }
+        }
+
+        function setVolume() {
+            audioPlayer.volume = volumeControl.value / 100;
+        }
+
+        audioPlayer.addEventListener('timeupdate', () => {
+            const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressBar.style.width = progress + '%';
+        });
+    </script>
+    
+
+    
+    
+    <script
+      src="https://kit.fontawesome.com/23cecef777.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

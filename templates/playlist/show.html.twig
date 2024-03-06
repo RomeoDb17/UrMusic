@@ -1,0 +1,30 @@
+{# templates/playlist/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ playlist.nombre }}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        img {
+            weight: 150px;
+            width: 150px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>{{ playlist.nombre }}</h1>
+    {% if playlist.imagen %}
+        <img src="{{ asset('images/' ~ playlist.imagen) }}" alt="{{ playlist.nombre }}">
+    {% else %}
+        <p>No hay imagen disponible</p>
+    {% endif %}
+    
+    <h2>Canciones:</h2>
+    <ul>
+        {% for cancionEnPlaylist in playlist.canciones %}
+            <li>{{ cancionEnPlaylist.cancion.id }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

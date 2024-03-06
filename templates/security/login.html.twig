@@ -67,13 +67,7 @@
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
-
-        {% if app.user %}
-            <div class="mb-3">
-                Logged as {{ app.user.userIdentifier }} - <a href="{{ path('app_logout') }}">Logout</a>
-            </div>
-        {% endif %}
-
+        
         <h1>Please sign in</h1>
         <form method="post">
             <div class="form-group">
@@ -86,8 +80,10 @@
             </div>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <input type="hidden" name="_target_path" value="{{ path('app_canciones_index') }}">
             
             <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+
         </form>
     </div>
 </body>
